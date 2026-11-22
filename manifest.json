@@ -1,0 +1,13 @@
+{
+  "id": "abbreviations",
+  "name": "Abbreviations",
+  "version": "1.0.0",
+  "minMarkooj": "1.1.0",
+  "author": "Markooj",
+  "authorUrl": "https://datakeen.github.io/markooj/",
+  "description": "List the abbreviations defined in a document",
+  "icon": "table",
+  "color": "#30b0c7",
+  "category": "writing",
+  "license": "MIT"
+}

@@ -1,0 +1,13 @@
+/* Abbreviations: optional styles. Markooj loads this file with the add-in when it is installed from the store.
+   Start every selector with your add-in's id, so it never changes the rest of Markooj. */
+
+.abbreviations-status {
+  font-variant-numeric: tabular-nums;
+}
+
+.abbreviations-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}

@@ -1,0 +1,43 @@
+# Publishes a release of this add-in when you push a tag such as v1.0.0 (or create one on the Releases page).
+# It checks that the tag matches "version" in manifest.json, then attaches manifest.json, main.js, styles.css and the
+# extra files listed in the manifest to the GitHub release. The Markooj add-in list picks up the new release within a day.
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the files
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Check manifest.json, main.js and the tag
+        run: node tools/check.js --tag "$GITHUB_REF_NAME"
+
+      - name: Create the release and attach the files
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          mapfile -t FILES < <(node tools/check.js --list-files)
+          NAME="$(node -p "require('./manifest.json').name")"
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            # made on the Releases page: add the files to it
+            gh release upload "$GITHUB_REF_NAME" "${FILES[@]}" --clobber
+          else
+            gh release create "$GITHUB_REF_NAME" "${FILES[@]}" --title "$NAME $GITHUB_REF_NAME" --generate-notes --verify-tag
+          fi
+          echo "Attached: ${FILES[*]}"
