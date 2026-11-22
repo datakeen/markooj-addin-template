@@ -60,6 +60,11 @@ to everyone who installed your add-in within a day.
 Extra data files, such as a word list, go next to `manifest.json` and are listed under `"files"` in it, for example
 `"files": [{ "name": "words.json" }]`. The whole add-in may be up to 50 MB, and `main.js` up to 2 MB.
 
+## Questions
+
+Stuck while making your add-in? [Send a message](https://tally.so/r/Dq7D5p?from=template-readme). It is a short form,
+and you will get a reply.
+
 ## License
 
 This template and the Abbreviations add-in are under the [MIT License](LICENSE), so you can reuse any part of them in
